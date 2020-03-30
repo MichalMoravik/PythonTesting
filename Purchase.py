@@ -5,21 +5,30 @@ class Purchase:
         self.cell_phones = []
         self.price = 0
 
+    def internet_connection(self, user_choices):
+        if user_choices:
+            self.price += 200
+        else:
+            self.price -= 200
 
-        def internet_connection(self, user_choices):
-            if user_choices:
-                self.price += 200
-            else:
-                self.price -=200
+        return self.price
 
-            return self.price
+    def buy(self):
+        if self.price == 0:
+            try:
+                print()
+
+            except ValueError:
+                print("Please add something to the list")
+
+    def increment_phonelines(self):
+        self.phones_lines += 1
+        if(self.phones_lines >8):
+            self.phones_lines = 8
+            raise ValueError('The maximum number of phone lines that can be hired is 8!')
 
 
-        
-        def buy(self):
-            if self.price == 0:
-                try:
-                    print()
-                
-                except ValueError:
-                    print("Please add something to the list")
+    def decrement_phonelines(self):
+        self.phones_lines -= 1
+        if(self.phones_lines < 0):
+            raise ValueError('The number of phone lines cannot be negative!')
