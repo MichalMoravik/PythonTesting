@@ -1,4 +1,4 @@
 class Phone:
-    def __init__(name, price):
+    def __init__(self, name, price):
         self.name = name
         self.price = price
