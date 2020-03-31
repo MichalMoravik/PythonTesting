@@ -23,8 +23,8 @@ jobs:
     - name: Test with unittest
       run: |
         python -m unittest
-    - name: Download artifact
-      uses: actions/download-artifact@v1.0.0
+    - name: Upload artifact
+      uses: actions/upload-artifact@v1
       with:
-        # Artifact name
-        name: dist
+            name: my-artifact
+            path: path/to/artifact
