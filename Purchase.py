@@ -6,10 +6,12 @@ class Purchase:
         self.price = 0
 
     # We use the change_internet_connection method to charge the user for the internet connection.
-    def change_internet_connection(self):
+    def change_internet_connection(self, internet_connection):
         # If the internet_connection is true we charge the user 200.
         if self.internet_connection == True:
             self.price += 200
+
+        return self.price
 
 
     # We use the buy method to check if the user bought something or not.
