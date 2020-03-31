@@ -5,13 +5,12 @@ class Purchase:
         self.cell_phones = []
         self.price = 0
 
-    def internet_connection(self, user_choices):
-        if user_choices:
+    def internet_connection(self):
+        if (internet_connection == True):
             self.price += 200
         else:
             self.price -= 200
 
-        return self.price
 
     def buy(self):
         if self.price == 0:
