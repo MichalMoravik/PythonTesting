@@ -29,4 +29,4 @@ jobs:
         # Artifact name
         name: artifact
         # Directory containing files to upload
-        path: /PythonTesting/dist
+        path: artifacts
