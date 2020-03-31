@@ -9,6 +9,12 @@ class test_purchase(unittest.TestCase):
         self.purchase.phones_lines = 3
         self.purchase.internet_connection = True
         self.purchase.price = 0
+        self.phones = []
+        self.motorola_G99 = {"Motorola G99": 800}
+        self.iPhone_99 = {"iPhone 99", 6000}
+        self.samsung_galaxy_99 = {"Samsung Galaxy 99", 1000}
+        self.sony_xperia_99 = {"Sony Xperia 99", 900}
+        self.huawei_99 = {"Huawei 99", 900}
 
     def test_increment_phonelines_success(self):
         self.purchase.increment_phonelines()
@@ -63,3 +69,12 @@ class test_purchase(unittest.TestCase):
             self.purchase.buy()
             # We check if self.purchase.price is greater than 0.
             self.assertGreater(self.purchase.price, 0)
+
+    def test_selecting_phone(self):
+        self.purchase.selecting_phone(self.motorola_G99)
+        self.assertEqual(len(self.purchase.phones), 1)
+
+    def test_unselecting_phone(self):
+        self.purchase.selecting_phone(self.iPhone_99)
+        self.purchase.unselecting_phone(self.iPhone_99)
+        self.assertEqual(len(self.purchase.phones), 0)

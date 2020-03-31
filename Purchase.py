@@ -33,8 +33,8 @@ class Purchase:
         if self.phones_lines < 0:
             raise ValueError("The number of phone lines cannot be negative!")
 
-    def selecting_phone(self, phone_name):
-        self.phones.append(phone_name)
+    def selecting_phone(self, phone):
+        self.phones.append(phone)
 
-    def unselecting_phone(self, phone_name):
-        self.phones.remove(phone_name)
+    def unselecting_phone(self, phone):
+        self.phones.remove(phone)
