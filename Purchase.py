@@ -1,24 +1,24 @@
 class Purchase:
     def __init__(self):
-        self.internet_connection = True
+        self.internet_connection = False
         self.phones_lines = 0
         self.cell_phones = []
         self.price = 0
 
-    def internet_connection(self):
-        if (internet_connection == True):
+    # We use the change_internet_connection method to charge the user for the internet connection.
+    def change_internet_connection(self):
+        # If the internet_connection is true we charge the user 200.
+        if self.internet_connection == True:
             self.price += 200
-        else:
-            self.price -= 200
 
 
+    # We use the buy method to check if the user bought something or not.
     def buy(self):
         if self.price == 0:
-            try:
-                print()
-
-            except ValueError:
-                print("Please add something to the list")
+            raise ValueError("Please add something to the list")
+        else:
+            print("Proceed to the next page")
+                
 
     def increment_phonelines(self):
         self.phones_lines += 1
