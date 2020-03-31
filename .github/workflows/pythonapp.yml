@@ -28,5 +28,3 @@ jobs:
       with:
         # Artifact name
         name: dist
-        # Destination path
-        path: dist
