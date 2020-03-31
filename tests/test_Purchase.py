@@ -1,11 +1,10 @@
 import unittest
 from Purchase import Purchase
-from Phone import Phone
 
 
 class TestEmployee(unittest.TestCase):
     def setUp(self):
-        print('setUp')
+        print("setUp")
         self.mySecondPurchase = Purchase()
         self.mySecondPurchase.phones_lines = 3
         self.mySecondPurchase.internet_connection = True
@@ -34,7 +33,6 @@ class TestEmployee(unittest.TestCase):
         self.mySecondPurchase.internet_connection()
         self.assertTrue(self.mySecondPurchase.internet_connection == True)
         self.assertEqual(self.mySecondPurchase.price, 200)
-    
 
     # def test_internet_connection_success(self):
     #     self.mySecondPurchase.internet_connection(self.mySecondPurchase.internet_connection)
