@@ -1,3 +1,12 @@
+phonesDict = {
+    "Motorola G99": 800,
+    "iPhone 99": 6000,
+    "Samsung Galaxy 99": 1000,
+    "Sony Xperia 99": 900,
+    "Huawei 99": 900,
+}
+
+
 class Purchase:
     def __init__(self):
         self.internet_connection = False
@@ -33,8 +42,18 @@ class Purchase:
         if self.phones_lines < 0:
             raise ValueError("The number of phone lines cannot be negative!")
 
-    def selecting_phone(self, phone):
-        self.phones.append(phone)
+    def selecting_phone(self, phone_name):
+        if phone_name in phonesDict:
+            self.phones.append(phone_name)
+            self.price = self.price + phonesDict[phone_name]
+            return self.price
+        else:
+            print("The phone does not exist!")
 
-    def unselecting_phone(self, phone):
-        self.phones.remove(phone)
+    def unselecting_phone(self, phone_name):
+        if phone_name in self.phones:
+            self.phones.remove(phone_name)
+            self.price = self.price - phonesDict[phone_name]
+            return self.price
+        else:
+            print("The phone does not exist!")

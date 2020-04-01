@@ -10,25 +10,21 @@ class test_purchase(unittest.TestCase):
         self.purchase.internet_connection = True
         self.purchase.price = 0
         self.phones = []
-        self.motorola_G99 = {"Motorola G99": 800}
-        self.iPhone_99 = {"iPhone 99", 6000}
-        self.samsung_galaxy_99 = {"Samsung Galaxy 99", 1000}
-        self.sony_xperia_99 = {"Sony Xperia 99", 900}
-        self.huawei_99 = {"Huawei 99", 900}
+        phones = {"Motorola G99": 800, "iPhone 99": 6000}
 
     def test_increment_phonelines_success(self):
         # We test both the valid upper boundary and valid lower boundary
-        for x in [0,1,6,7]:
+        for x in [0, 1, 6, 7]:
             self.purchase.phones_lines = x
         self.purchase.increment_phonelines()
-        self.assertEqual(self.purchase.phones_lines, x+1)
+        self.assertEqual(self.purchase.phones_lines, x + 1)
 
     def test_decrement_phonelines_success(self):
         # We test both the valid upper boundary and valid lower boundary
-        for x in [9,8,2,1]:
+        for x in [9, 8, 2, 1]:
             self.purchase.phones_lines = x
         self.purchase.decrement_phonelines()
-        self.assertEqual(self.purchase.phones_lines, x-1)
+        self.assertEqual(self.purchase.phones_lines, x - 1)
 
     def test_increment_phonelines_fail(self):
         # We test invaild upper boundary
@@ -74,9 +70,11 @@ class test_purchase(unittest.TestCase):
         # We make a for loop to check several inputs.
         for x in ["Motorola G99", "iPhone 99", "Samsung Galaxy 99"]:
             self.purchase.phones.append(x)
-            self.purchase.buy()            
+            self.purchase.buy()
         # We check if purchase.phones list is equal to the inputs.
-        self.assertEqual(self.purchase.phones, ["Motorola G99", "iPhone 99", "Samsung Galaxy 99"])
+        self.assertEqual(
+            self.purchase.phones, ["Motorola G99", "iPhone 99", "Samsung Galaxy 99"]
+        )
 
     def test_selecting_phone(self):
         self.purchase.selecting_phone(self.motorola_G99)
