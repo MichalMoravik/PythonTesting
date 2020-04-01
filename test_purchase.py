@@ -6,7 +6,6 @@ from purchase import Purchase
 class test_purchase(unittest.TestCase):
 
     valid_phone_lines = lambda: ((0,), (1,), (6,), (7,))
-    invalid_phone_lines = lambda: ((9,), (8,), (2,), (1,))
 
 
     @data_provider(valid_phone_lines)
@@ -24,6 +23,7 @@ class test_purchase(unittest.TestCase):
         self.assertEqual(purchase.price, initial_price + purchase.phone_lines_price)
 
 
+    invalid_phone_lines = lambda: ((9,), (8,), (2,), (1,))
 
     @data_provider(invalid_phone_lines)
     def test_decrement_phonelines_success(self, invalid_phone_lines):

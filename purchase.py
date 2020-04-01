@@ -26,7 +26,7 @@ class Purchase:
     def increment_phonelines(self):
         if self.phones_lines < self.max_phone_lines:
             self.phones_lines += 1
-            self.price += 150
+            self.price += self.phone_lines_price
             return self.price
         else:
             raise ValueError(
@@ -36,7 +36,7 @@ class Purchase:
     def decrement_phonelines(self):
         if self.phones_lines > 0:
             self.phones_lines -= 1
-            self.price -= 150
+            self.price -= self.phone_lines_price
             return self.price
         else:
             raise ValueError(
