@@ -18,7 +18,7 @@ class Purchase:
 
     # We use the buy method to check if the user bought something or not.
     def buy(self):
-        if self.phones == []:
+        if self.phones == {}:
             raise ValueError("Please add something to the list")
         else:
             print("Proceed to the next page")
