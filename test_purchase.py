@@ -3,15 +3,6 @@ from purchase import Purchase
 
 
 class test_purchase(unittest.TestCase):
-    def setUp(self):
-        print("setUp")
-        self.purchase = Purchase()
-        self.purchase.phones_lines = 3
-        self.purchase.internet_connection = True
-        self.purchase.price = 0
-        self.phones = []
-        phones = {"Motorola G99": 800, "iPhone 99": 6000}
-
     def test_increment_phonelines_success(self):
         # We test both the valid upper boundary and valid lower boundary
         for x in [0, 1, 6, 7]:
@@ -77,10 +68,15 @@ class test_purchase(unittest.TestCase):
         )
 
     def test_selecting_phone(self):
-        self.purchase.selecting_phone(self.motorola_G99)
+        # Arrange
+        phonesDict = {"Motorola G99": 800}
+        purchase = Purchase()
+
+        # Act
+        self.purchase.selecting_phone(self.phones, phonesDict, "Motorola G99")
+
+        # Assert
         self.assertEqual(len(self.purchase.phones), 1)
 
     def test_unselecting_phone(self):
-        self.purchase.selecting_phone(self.iPhone_99)
-        self.purchase.unselecting_phone(self.iPhone_99)
-        self.assertEqual(len(self.purchase.phones), 0)
+        

@@ -1,13 +1,3 @@
-# example of possible phones dictionary
-# phonesDict = {
-#     "Motorola G99": 800,
-#     "iPhone 99": 6000,
-#     "Samsung Galaxy 99": 1000,
-#     "Sony Xperia 99": 900,
-#     "Huawei 99": 900,
-# }
-
-
 class Purchase:
     def __init__(self):
         self.internet_connection = False
@@ -34,7 +24,6 @@ class Purchase:
         if self.phones_lines < 8:
             self.phones_lines += 1
         else:
-            self.phones_lines = 8
             raise ValueError(
                 "Invalid input. The maximum number of phone lines that can be hired is 8"
             )
@@ -53,7 +42,9 @@ class Purchase:
             self.price = self.price + phones[phone_name]
             return self.price
         else:
-            print("The phone does not exist!")
+            raise ValueError(
+                "Invalid input. The number of phone lines cannot be negative"
+            )
 
     def unselecting_phone(self, phones, phone_name):
         if phone_name in self.phones:
