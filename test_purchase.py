@@ -1,70 +1,118 @@
 import unittest
+from unittest_data_provider import data_provider
 from purchase import Purchase
 
 
 class test_purchase(unittest.TestCase):
-    def test_increment_phonelines_success(self):
+
+    numbers = lambda: ((0,), (1,), (6,), (7,))
+
+    @data_provider(numbers)
+    def test_increment_phonelines_success(self, numbers):
+        # Arrange
+        purchase = Purchase()
+        # Act and Assert
         # We test both the valid upper boundary and valid lower boundary
-        for x in [0, 1, 6, 7]:
-            self.purchase.phones_lines = x
-            self.purchase.increment_phonelines()
-            self.assertEqual(self.purchase.phones_lines, x + 1)
+        # for x in [0, 1, 6, 7]:
+        purchase.phones_lines = numbers
+        initial_price = purchase.price
+        purchase.increment_phonelines()
+        print(numbers)
+        self.assertEqual(purchase.phones_lines, numbers + 1)
+        self.assertEqual(purchase.price, initial_price + purchase.phone_lines_price)
 
     def test_decrement_phonelines_success(self):
+        # Arrange
+        purchase = Purchase()
+        # Act and Assert
         # We test both the valid upper boundary and valid lower boundary
         for x in [9, 8, 2, 1]:
-            self.purchase.phones_lines = x
-            self.purchase.decrement_phonelines()
-            self.assertEqual(self.purchase.phones_lines, x - 1)
+            purchase.phones_lines = x
+            initial_price = purchase.price
+            purchase.decrement_phonelines()
+            self.assertEqual(purchase.phones_lines, x - 1)
+            self.assertEqual(purchase.price, initial_price - purchase.phone_lines_price)
 
     def test_increment_phonelines_fail(self):
+        # Arrange
+        purchase = Purchase()
         # We test invaild upper boundary
-        self.purchase.phones_lines = 8
+        purchase = Purchase()
+        purchase.phones_lines = purchase.max_phone_lines
 
         with self.assertRaises(ValueError):
-            self.purchase.increment_phonelines()
+            purchase.increment_phonelines()
 
     def test_decrement_phonelines_fail(self):
+        # Arrange
+        purchase = Purchase()
         # We test invaild lower boundary.
-        self.purchase.phones_lines = 0
+        purchase.phones_lines = 0
         with self.assertRaises(ValueError):
-            self.purchase.decrement_phonelines()
+            purchase.decrement_phonelines()
 
     def test_internet_connection_True_and_check_price(self):
+        # Arrange
+        purchase = Purchase()
+        purchase.internet_connection = True
+
+        # Act
         # We call on the function purchase.change_internet_connection.
         # The function takes 1 boolean parameter.
-        # We insert self.purchase.internet_connection which is supposed to be True.
-        self.purchase.change_internet_connection(self.purchase.internet_connection)
-        self.assertTrue(self.purchase.internet_connection)
-        # If the self.purchase.internet_connection is True.
-        # Then the self.purchase.price should be equal to 200.
-        self.assertEqual(self.purchase.price, 200)
+        # We insert purchase.internet_connection which is supposed to be True.
+        purchase.change_internet_connection(purchase.internet_connection)
+
+        # Assert
+        self.assertTrue(purchase.internet_connection)
+        # If the purchase.internet_connection is True.
+        # Then the purchase.price should be equal to 200.
+        self.assertEqual(purchase.price, 200)
 
     def test_internet_connection_False_and_check_price(self):
+        # Arrange
+        purchase = Purchase()
         # We set self.purchase.internet_connection to be False.
-        self.purchase.internet_connection = False
+        purchase.internet_connection = False
+
+        # Act
+        purchase.change_internet_connection(purchase.internet_connection)
+
+        # Assert
         # We check if purchase.change_internet_connection(self.purchase.internet_connection) is False.
         self.assertFalse(
-            self.purchase.change_internet_connection(self.purchase.internet_connection)
+            purchase.change_internet_connection(purchase.internet_connection)
         )
+
         # If it is False then purchase.price should be equal 0.
-        self.assertEqual(self.purchase.price, 0)
+        self.assertEqual(purchase.price, 0)
 
     def test_buy_Fail(self):
-        # We check if purchase.phones list is empty.
-        self.assertEqual(self.purchase.phones, [])
+        # Arrange
+        purchase = Purchase()
+
+        # Act
         # If it is then an error message will appear.
         with self.assertRaises(ValueError):
-            self.purchase.buy()
+            purchase.buy()
+
+        # Assert
+        # We check if purchase.phones list is empty.
+        self.assertEqual(purchase.phones, [])
 
     def test_buy_Success(self):
+        # Arrange
+        purchase = Purchase()
         # We make a for loop to check several inputs.
         for x in ["Motorola G99", "iPhone 99", "Samsung Galaxy 99"]:
-            self.purchase.phones.append(x)
-            self.purchase.buy()
+            purchase.phones.append(x)
+
+            # Act
+            purchase.buy()
+
+            # Assert
         # We check if purchase.phones list is equal to the inputs.
         self.assertEqual(
-            self.purchase.phones, ["Motorola G99", "iPhone 99", "Samsung Galaxy 99"]
+            purchase.phones, ["Motorola G99", "iPhone 99", "Samsung Galaxy 99"]
         )
 
     def test_get_price_after_selecting_phone(self):
