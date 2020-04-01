@@ -17,20 +17,28 @@ class test_purchase(unittest.TestCase):
         self.huawei_99 = {"Huawei 99", 900}
 
     def test_increment_phonelines_success(self):
+        # We test both the valid upper boundary and valid lower boundary
+        for x in [0,1,6,7]:
+            self.purchase.phones_lines = x
         self.purchase.increment_phonelines()
-        self.assertEqual(self.purchase.phones_lines, 4)
+        self.assertEqual(self.purchase.phones_lines, x+1)
 
     def test_decrement_phonelines_success(self):
+        # We test both the valid upper boundary and valid lower boundary
+        for x in [9,8,2,1]:
+            self.purchase.phones_lines = x
         self.purchase.decrement_phonelines()
-        self.assertEqual(self.purchase.phones_lines, 2)
+        self.assertEqual(self.purchase.phones_lines, x-1)
 
     def test_increment_phonelines_fail(self):
+        # We test invaild upper boundary
         self.purchase.phones_lines = 8
 
         with self.assertRaises(ValueError):
             self.purchase.increment_phonelines()
 
     def test_decrement_phonelines_fail(self):
+        # We test invaild lower boundary.
         self.purchase.phones_lines = 0
         with self.assertRaises(ValueError):
             self.purchase.decrement_phonelines()
