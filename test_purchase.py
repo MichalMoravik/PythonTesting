@@ -56,19 +56,19 @@ class test_purchase(unittest.TestCase):
         self.assertEqual(self.purchase.price, 0)
 
     def test_buy_Fail(self):
-        # We check if purchase.price is equal to 0.
-        self.assertEqual(self.purchase.price, 0)
+        # We check if purchase.phones list is empty.
+        self.assertEqual(self.purchase.phones, [])
         # If it is then an error message will appear.
         with self.assertRaises(ValueError):
             self.purchase.buy()
 
     def test_buy_Success(self):
-        # We set purchase.price to 1,2 and 3 in a for loop.
-        for x in [1, 2, 3]:
-            self.purchase.price = x
-            self.purchase.buy()
-            # We check if self.purchase.price is greater than 0.
-            self.assertGreater(self.purchase.price, 0)
+        # We make a for loop to check several inputs.
+        for x in ["Motorola G99", "iPhone 99", "Samsung Galaxy 99"]:
+            self.purchase.phones.append(x)
+            self.purchase.buy()            
+        # We check if purchase.phones list is equal to the inputs.
+        self.assertEqual(self.purchase.phones, ["Motorola G99", "iPhone 99", "Samsung Galaxy 99"])
 
     def test_selecting_phone(self):
         self.purchase.selecting_phone(self.motorola_G99)
