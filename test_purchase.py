@@ -5,7 +5,7 @@ from purchase import Purchase
 
 class test_purchase(unittest.TestCase):
 
-    data = lambda: ((0,), (1,), (6,), (7,))
+    def data(): return ((0,), (1,), (6,), (7,))
 
     @data_provider(data)
     def test_increment_phonelines_success(self, data):
@@ -19,9 +19,10 @@ class test_purchase(unittest.TestCase):
         purchase.increment_phonelines()
         print(data)
         self.assertEqual(purchase.phones_lines, data + 1)
-        self.assertEqual(purchase.price, initial_price + purchase.phone_lines_price)
+        self.assertEqual(purchase.price, initial_price +
+                         purchase.phone_lines_price)
 
-    data = lambda: ((9,), (8,), (2,), (1,))
+    def data(): return ((9,), (8,), (2,), (1,))
 
     @data_provider(data)
     def test_decrement_phonelines_success(self, data):
@@ -35,7 +36,8 @@ class test_purchase(unittest.TestCase):
         purchase.decrement_phonelines()
         print(data)
         self.assertEqual(purchase.phones_lines, data - 1)
-        self.assertEqual(purchase.price, initial_price - purchase.phone_lines_price)
+        self.assertEqual(purchase.price, initial_price -
+                         purchase.phone_lines_price)
 
     def test_increment_phonelines_fail(self):
         # Arrange
@@ -119,7 +121,9 @@ class test_purchase(unittest.TestCase):
             purchase.phones, ["Motorola G99", "iPhone 99", "Samsung Galaxy 99"]
         )
 
-    def test_get_price_after_selecting_phone(self):
+    # Test if a Purchase's price is updated - the price of the added phone should be added to the total price
+
+    def test_get_price_after_selecting_phone__success(self):
         # Arrange
         phonesDict = {"Motorola G99": 800}
         purchase = Purchase()
@@ -128,10 +132,21 @@ class test_purchase(unittest.TestCase):
         purchase.get_price_after_selecting_phone(phonesDict, "Motorola G99")
 
         # Assert
-        # The new price should be updated - the price of the phone should be added to the total price
         self.assertEqual(purchase.price, 800)
 
-    def test_get_price_after_unselecting_phone(self):
+    # Test if a Purchase's price is updated - the test should fail since selected phone is not in the dictionary of available phones
+
+    def test_get_price_after_selecting_phone__fail(self):
+        # Arrange
+        phonesDict = {"Motorola G99": 800}
+        purchase = Purchase()
+
+        # Assert
+        self.assertRaises(
+            ValueError, purchase.get_price_after_selecting_phone, phonesDict, "iPhone 99")
+
+    # Test if a Purchase's price is updated - the total price should be decremented by the price of the selected phone
+    def test_get_price_after_unselecting_phone__success(self):
         # Arrange
         purchase = Purchase()
         purchase.phones = {"Motorola G99": 800}
@@ -141,5 +156,15 @@ class test_purchase(unittest.TestCase):
         purchase.get_price_after_unselecting_phone("Motorola G99")
 
         # Assert
-        # The new price should be updated - the total price should be decremented by the price of the phone
         self.assertEqual(purchase.price, 0)
+
+    # Test if a Purchase's price is updated - the test should fail since selected phone is not in the dictionary of Purchase's phones
+    def test_get_price_after_unselecting_phone__fail(self):
+        # Arrange
+        purchase = Purchase()
+        purchase.phones = {"Motorola G99": 800}
+        purchase.price = 800
+
+        # Assert
+        self.assertRaises(
+            ValueError, purchase.get_price_after_unselecting_phone, "iPhone 99")
