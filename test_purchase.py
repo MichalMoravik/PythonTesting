@@ -101,23 +101,23 @@ class test_purchase(unittest.TestCase):
 
         # Assert
         # We check if purchase.phones list is empty.
-        self.assertEqual(purchase.phones, [])
+        self.assertEqual(purchase.phones, {})
 
-    def test_buy_Success(self):
+    valid_phone_list = lambda: (({"Motorola G99": 800},), ({"iPhone 99":6000},), ({"Samsung Galaxy 99":1000},))
+
+    @data_provider(valid_phone_list)
+    def test_buy_Success(self, valid_phone_list):
         # Arrange
         purchase = Purchase()
         # We make a for loop to check several inputs.
-        for x in ["Motorola G99", "iPhone 99", "Samsung Galaxy 99"]:
-            purchase.phones.append(x)
+        purchase.phones.update(valid_phone_list)
 
             # Act
-            purchase.buy()
-
+        purchase.buy()
+        print(valid_phone_list)
             # Assert
         # We check if purchase.phones list is equal to the inputs.
-        self.assertEqual(
-            purchase.phones, ["Motorola G99", "iPhone 99", "Samsung Galaxy 99"]
-        )
+        self.assertEqual(purchase.phones, valid_phone_list)
 
     def test_get_price_after_selecting_phone(self):
         # Arrange
