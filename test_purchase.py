@@ -5,33 +5,37 @@ from purchase import Purchase
 
 class test_purchase(unittest.TestCase):
 
-    numbers = lambda: ((0,), (1,), (6,), (7,))
+    valid_phone_lines = lambda: ((0,), (1,), (6,), (7,))
+    invalid_phone_lines = lambda: ((9,), (8,), (2,), (1,))
 
-    @data_provider(numbers)
-    def test_increment_phonelines_success(self, numbers):
+
+    @data_provider(valid_phone_lines)
+    def test_increment_phonelines_success(self, valid_phone_lines):
         # Arrange
         purchase = Purchase()
         # Act and Assert
         # We test both the valid upper boundary and valid lower boundary
         # for x in [0, 1, 6, 7]:
-        purchase.phones_lines = numbers
+        purchase.phones_lines = valid_phone_lines
         initial_price = purchase.price
         purchase.increment_phonelines()
-        print(numbers)
-        self.assertEqual(purchase.phones_lines, numbers + 1)
+        print(valid_phone_lines)
+        self.assertEqual(purchase.phones_lines, valid_phone_lines + 1)
         self.assertEqual(purchase.price, initial_price + purchase.phone_lines_price)
 
-    def test_decrement_phonelines_success(self):
+
+
+    @data_provider(invalid_phone_lines)
+    def test_decrement_phonelines_success(self, invalid_phone_lines):
         # Arrange
         purchase = Purchase()
         # Act and Assert
         # We test both the valid upper boundary and valid lower boundary
-        for x in [9, 8, 2, 1]:
-            purchase.phones_lines = x
-            initial_price = purchase.price
-            purchase.decrement_phonelines()
-            self.assertEqual(purchase.phones_lines, x - 1)
-            self.assertEqual(purchase.price, initial_price - purchase.phone_lines_price)
+        purchase.phones_lines = invalid_phone_lines
+        initial_price = purchase.price
+        purchase.decrement_phonelines()
+        self.assertEqual(purchase.phones_lines, invalid_phone_lines - 1)
+        self.assertEqual(purchase.price, initial_price - purchase.phone_lines_price)
 
     def test_increment_phonelines_fail(self):
         # Arrange
