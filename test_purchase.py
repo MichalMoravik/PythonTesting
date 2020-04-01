@@ -67,16 +67,27 @@ class test_purchase(unittest.TestCase):
             self.purchase.phones, ["Motorola G99", "iPhone 99", "Samsung Galaxy 99"]
         )
 
-    def test_selecting_phone(self):
+    def test_get_price_after_selecting_phone(self):
         # Arrange
         phonesDict = {"Motorola G99": 800}
         purchase = Purchase()
 
         # Act
-        self.purchase.selecting_phone(self.phones, phonesDict, "Motorola G99")
+        purchase.get_price_after_selecting_phone(phonesDict, "Motorola G99")
 
         # Assert
-        self.assertEqual(len(self.purchase.phones), 1)
+        # The new price should be updated - the price of the phone should be added to the total price
+        self.assertEqual(purchase.price, 800)
 
-    def test_unselecting_phone(self):
-        
+    def test_get_price_after_unselecting_phone(self):
+        # Arrange
+        purchase = Purchase()
+        purchase.phones = {"Motorola G99": 800}
+        purchase.price = 800
+
+        # Act
+        purchase.get_price_after_unselecting_phone("Motorola G99")
+
+        # Assert
+        # The new price should be updated - the total price should be decremented by the price of the phone
+        self.assertEqual(purchase.price, 0)

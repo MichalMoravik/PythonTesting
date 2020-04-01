@@ -2,7 +2,7 @@ class Purchase:
     def __init__(self):
         self.internet_connection = False
         self.phones_lines = 0
-        self.phones = []
+        self.phones = {}
         self.price = 0
 
     # We use the change_internet_connection method to charge the user for the internet connection.
@@ -36,20 +36,24 @@ class Purchase:
                 "Invalid input. The number of phone lines cannot be negative"
             )
 
-    def selecting_phone(self, phones, phone_name):
-        if phone_name in phones:
-            self.phones.append(phone_name)
-            self.price = self.price + phones[phone_name]
+    # Add new key-value pair from available dictionary of phones to Purchase's dictionary of phones
+    # Update Purchase's price
+    # Return price
+    def get_price_after_selecting_phone(self, phonesDictionary, phone_name):
+        if phone_name in phonesDictionary:
+            self.price = self.price + phonesDictionary[phone_name]
+            self.phones[phone_name] = phonesDictionary[phone_name]
             return self.price
         else:
-            raise ValueError(
-                "Invalid input. The number of phone lines cannot be negative"
-            )
+            raise ValueError("The phone does not exist!")
 
-    def unselecting_phone(self, phones, phone_name):
+    # Delete key-value pair from Purchase's dictionary of phones
+    # Update Purchase's price
+    # Return price
+    def get_price_after_unselecting_phone(self, phone_name):
         if phone_name in self.phones:
-            self.phones.remove(phone_name)
-            self.price = self.price - phones[phone_name]
+            self.price = self.price - self.phones[phone_name]
+            del self.phones[phone_name]
             return self.price
         else:
-            print("The phone does not exist!")
+            raise ValueError("The phone does not exist!")
