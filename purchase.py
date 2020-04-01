@@ -1,6 +1,7 @@
 class Purchase:
     max_phone_lines = 8
     internet_connection_price = 200
+    phone_lines_price = 150
     def __init__(self):
         self.internet_connection = False
         self.phones_lines = 0
@@ -25,6 +26,8 @@ class Purchase:
     def increment_phonelines(self):
         if self.phones_lines < self.max_phone_lines:
             self.phones_lines += 1
+            self.price += 150
+            return self.price
         else:
             raise ValueError(
                 "Invalid input. The maximum number of phone lines that can be hired is 8"
@@ -33,6 +36,8 @@ class Purchase:
     def decrement_phonelines(self):
         if self.phones_lines > 0:
             self.phones_lines -= 1
+            self.price -= 150
+            return self.price
         else:
             raise ValueError(
                 "Invalid input. The number of phone lines cannot be negative"
