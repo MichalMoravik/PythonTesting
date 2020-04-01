@@ -10,8 +10,10 @@ class test_purchase(unittest.TestCase):
         # We test both the valid upper boundary and valid lower boundary
         for x in [0, 1, 6, 7]:
             purchase.phones_lines = x
+            initial_price = purchase.price
             purchase.increment_phonelines()
             self.assertEqual(purchase.phones_lines, x + 1)
+            self.assertEqual(purchase.price, initial_price + purchase.phone_lines_price)
 
     def test_decrement_phonelines_success(self):
         # Arrange
@@ -20,8 +22,10 @@ class test_purchase(unittest.TestCase):
         # We test both the valid upper boundary and valid lower boundary
         for x in [9, 8, 2, 1]:
             purchase.phones_lines = x
+            initial_price = purchase.price
             purchase.decrement_phonelines()
             self.assertEqual(purchase.phones_lines, x - 1)
+            self.assertEqual(purchase.price, initial_price - purchase.phone_lines_price)
 
     def test_increment_phonelines_fail(self):
         # Arrange
