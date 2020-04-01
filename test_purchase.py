@@ -4,31 +4,42 @@ from purchase import Purchase
 
 class test_purchase(unittest.TestCase):
     def test_increment_phonelines_success(self):
+        # Arrange
+        purchase = Purchase()
+        # Act and Assert
         # We test both the valid upper boundary and valid lower boundary
         for x in [0, 1, 6, 7]:
-            self.purchase.phones_lines = x
-            self.purchase.increment_phonelines()
-            self.assertEqual(self.purchase.phones_lines, x + 1)
+            purchase.phones_lines = x
+            purchase.increment_phonelines()
+            self.assertEqual(purchase.phones_lines, x + 1)
 
     def test_decrement_phonelines_success(self):
+        # Arrange
+        purchase = Purchase()
+        # Act and Assert
         # We test both the valid upper boundary and valid lower boundary
         for x in [9, 8, 2, 1]:
-            self.purchase.phones_lines = x
-            self.purchase.decrement_phonelines()
-            self.assertEqual(self.purchase.phones_lines, x - 1)
+            purchase.phones_lines = x
+            purchase.decrement_phonelines()
+            self.assertEqual(purchase.phones_lines, x - 1)
 
     def test_increment_phonelines_fail(self):
+        # Arrange
+        purchase = Purchase()
         # We test invaild upper boundary
-        self.purchase.phones_lines = 8
+        purchase = Purchase()
+        purchase.phones_lines = purchase.max_phone_lines
 
         with self.assertRaises(ValueError):
-            self.purchase.increment_phonelines()
+            purchase.increment_phonelines()
 
     def test_decrement_phonelines_fail(self):
+        # Arrange
+        purchase = Purchase()
         # We test invaild lower boundary.
-        self.purchase.phones_lines = 0
+        purchase.phones_lines = 0
         with self.assertRaises(ValueError):
-            self.purchase.decrement_phonelines()
+            purchase.decrement_phonelines()
 
     def test_internet_connection_True_and_check_price(self):
         # We call on the function purchase.change_internet_connection.
