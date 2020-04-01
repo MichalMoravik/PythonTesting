@@ -31,41 +31,66 @@ class test_purchase(unittest.TestCase):
             self.purchase.decrement_phonelines()
 
     def test_internet_connection_True_and_check_price(self):
+         # Arrange
+        purchase = Purchase()
+        purchase.internet_connection = True
+
+        # Act
         # We call on the function purchase.change_internet_connection.
         # The function takes 1 boolean parameter.
-        # We insert self.purchase.internet_connection which is supposed to be True.
-        self.purchase.change_internet_connection(self.purchase.internet_connection)
-        self.assertTrue(self.purchase.internet_connection)
-        # If the self.purchase.internet_connection is True.
-        # Then the self.purchase.price should be equal to 200.
-        self.assertEqual(self.purchase.price, 200)
+        # We insert purchase.internet_connection which is supposed to be True.
+        purchase.change_internet_connection(purchase.internet_connection)
+
+        # Assert
+        self.assertTrue(purchase.internet_connection)
+        # If the purchase.internet_connection is True.
+        # Then the purchase.price should be equal to 200.
+        self.assertEqual(purchase.price, 200)
 
     def test_internet_connection_False_and_check_price(self):
+         # Arrange
+        purchase = Purchase()
         # We set self.purchase.internet_connection to be False.
-        self.purchase.internet_connection = False
+        purchase.internet_connection = False
+
+        # Act
+        purchase.change_internet_connection(purchase.internet_connection)
+
+        # Assert
         # We check if purchase.change_internet_connection(self.purchase.internet_connection) is False.
         self.assertFalse(
-            self.purchase.change_internet_connection(self.purchase.internet_connection)
-        )
+            purchase.change_internet_connection(purchase.internet_connection))
+
         # If it is False then purchase.price should be equal 0.
-        self.assertEqual(self.purchase.price, 0)
+        self.assertEqual(purchase.price, 0)
 
     def test_buy_Fail(self):
-        # We check if purchase.phones list is empty.
-        self.assertEqual(self.purchase.phones, [])
+        # Arrange
+        purchase = Purchase()
+
+        # Act
         # If it is then an error message will appear.
         with self.assertRaises(ValueError):
-            self.purchase.buy()
+            purchase.buy()
+
+        # Assert
+        # We check if purchase.phones list is empty.
+        self.assertEqual(purchase.phones, [])
+        
 
     def test_buy_Success(self):
+        # Arrange
+        purchase = Purchase()
         # We make a for loop to check several inputs.
         for x in ["Motorola G99", "iPhone 99", "Samsung Galaxy 99"]:
-            self.purchase.phones.append(x)
-            self.purchase.buy()
+            purchase.phones.append(x)
+
+            # Act
+            purchase.buy()
+
+            # Assert
         # We check if purchase.phones list is equal to the inputs.
-        self.assertEqual(
-            self.purchase.phones, ["Motorola G99", "iPhone 99", "Samsung Galaxy 99"]
-        )
+        self.assertEqual(purchase.phones, ["Motorola G99", "iPhone 99", "Samsung Galaxy 99"])
 
     def test_selecting_phone(self):
         # Arrange
@@ -78,5 +103,4 @@ class test_purchase(unittest.TestCase):
         # Assert
         self.assertEqual(len(self.purchase.phones), 1)
 
-    def test_unselecting_phone(self):
-        
+    # def test_unselecting_phone(self):
