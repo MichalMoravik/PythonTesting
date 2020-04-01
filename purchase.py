@@ -24,7 +24,6 @@ class Purchase:
         if self.phones_lines < 8:
             self.phones_lines += 1
         else:
-            self.phones_lines = 8
             raise ValueError(
                 "Invalid input. The maximum number of phone lines that can be hired is 8"
             )
