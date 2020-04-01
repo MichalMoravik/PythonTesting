@@ -30,17 +30,19 @@ class Purchase:
             print("Proceed to the next page")
 
     def increment_phonelines(self):
-        self.phones_lines += 1
-        if self.phones_lines > 8:
+        if self.phones_lines < 8:
+            self.phones_lines += 1
+        else:
             self.phones_lines = 8
             raise ValueError(
-                "The maximum number of phone lines that can be hired is 8!"
+                "Invalid input. The maximum number of phone lines that can be hired is 8"
             )
 
     def decrement_phonelines(self):
-        self.phones_lines -= 1
-        if self.phones_lines < 0:
-            raise ValueError("The number of phone lines cannot be negative!")
+        if self.phones_lines > 0:
+            self.phones_lines -= 1
+        else:
+            raise ValueError("Invalid input. The number of phone lines cannot be negative")
 
     def selecting_phone(self, phone_name):
         if phone_name in phonesDict:
