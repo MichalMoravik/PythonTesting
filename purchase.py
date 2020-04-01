@@ -1,3 +1,4 @@
+# example of possible phones dictionary
 phonesDict = {
     "Motorola G99": 800,
     "iPhone 99": 6000,
@@ -42,20 +43,22 @@ class Purchase:
         if self.phones_lines > 0:
             self.phones_lines -= 1
         else:
-            raise ValueError("Invalid input. The number of phone lines cannot be negative")
+            raise ValueError(
+                "Invalid input. The number of phone lines cannot be negative"
+            )
 
-    def selecting_phone(self, phone_name):
-        if phone_name in phonesDict:
+    def selecting_phone(self, phones, phone_name):
+        if phone_name in phones:
             self.phones.append(phone_name)
-            self.price = self.price + phonesDict[phone_name]
+            self.price = self.price + phones[phone_name]
             return self.price
         else:
             print("The phone does not exist!")
 
-    def unselecting_phone(self, phone_name):
+    def unselecting_phone(self, phones, phone_name):
         if phone_name in self.phones:
             self.phones.remove(phone_name)
-            self.price = self.price - phonesDict[phone_name]
+            self.price = self.price - phones[phone_name]
             return self.price
         else:
             print("The phone does not exist!")
